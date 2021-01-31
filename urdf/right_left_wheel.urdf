@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- Run the following command on the terminal -->
-<!-- roslaunch urdf_tutorial display.launch model:='$(find guru_bot)/urdf/guru_try.urdf' -->
+<!-- roslaunch urdf_tutorial display.launch model:='$(find guru_bot)/urdf/right_left_wheel.urdf' -->
 <!-- Install the following  -->
 <!-- sudo apt install ros-kinetic-joint-state-publisher-gui -->
 <robot name="guru_bot">
@@ -46,6 +46,41 @@
         <child link="front_wheel"/>
         <origin xyz="0.05 0.0 -0.05" rpy="-1.5708 0.0 0.0"/> <!--Horizontal to front caster wheel, offset from the front caster to wheel-->
     </joint>
+    <link name="right_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.055" length="0.075"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0.0 0.0 0.0 1"/>
+                
+            </material>
+        </visual>
+    </link>
+    <joint name="right_wheel_joint" type="continuous">
+        <axis xyz="0.0 0.0 1.0"/>
+        <parent link="base_link"/>
+        <child link="right_wheel"/>
+        <origin xyz="-0.2825 -.13 -.05" rpy="-1.5707 0.0 0.0"/> 
+        <!--xyz - positioning the wheel-->
+    </joint>
     
-
+    <link name="left_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.055" length="0.075"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0.0 0.0 0.0 1"/>
+                
+            </material>
+        </visual>
+    </link>
+    <joint name="left_wheel_joint" type="continuous">
+        <axis xyz="0.0 0.0 1.0"/>
+        <parent link="base_link"/>
+        <child link="left_wheel"/>
+        <origin xyz="-0.2825 .13 -.05" rpy="-1.5707 0.0 0.0"/> 
+        <!--xyz - positioning the wheel-->
+    </joint>
 </robot>
