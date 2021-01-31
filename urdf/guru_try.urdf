@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!-- Run the following command on the terminal -->
+<!-- roslaunch urdf_tutorial display.launch model:='$(find guru_bot)/urdf/guru_try.urdf' -->
+<!-- Install the following  -->
+<!-- sudo apt install ros-kinetic-joint-state-publisher-gui -->
+<robot name="guru_bot">
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.6 0.3 0.1"/>
+            </geometry>
+            <material name="red">
+                <color rgba="1 0.0 0.0 1"/>
+            </material>
+        </visual>      
+    </link>
+    <link name="front_caster_of_wheel">
+        <visual>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+            <material name="green">
+                <color rgba="0.0 0.1 0.0 1"/>   
+            </material>
+        </visual>
+    </link>
+    <joint name="front_caster_of_wheel_joint" type="continuous">
+       <axis xyz="0.0 0.0 1"/> 
+       <parent link="base_link"/>
+       <child link="front_caster_of_wheel"/>
+       <origin xyz="0.3 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+    <link name="front_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="0.035" length="0.05"/>
+            </geometry>
+            <material name="black">
+                
+            </material>
+        </visual>
+    </link>
+    <joint name="front_wheel_joint" type="continuous">
+        <axis xyz="0.0 0.0 1.0"/>
+        <parent link="front_caster_of_wheel"/>
+        <child link="front_wheel"/>
+        <origin xyz="0.05 0.0 -0.05" rpy="-1.5708 0.0 0.0"/>
+    </joint>
+</robot>
