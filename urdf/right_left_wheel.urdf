@@ -3,6 +3,22 @@
 <!-- roslaunch urdf_tutorial display.launch model:='$(find guru_bot)/urdf/right_left_wheel.urdf' -->
 <!-- Install the following  -->
 <!-- sudo apt install ros-kinetic-joint-state-publisher-gui -->
+<!-- http://wiki.ros.org/urdf/Tutorials -->
+
+
+
+<!-- Have you Tried to open multiple terminals using:
+Ctrl + Shift + T
+Then switching among them using:
+Ctrl + PageUP
+And
+Ctrl + PageDown
+I usually use this scenario at least for me -->
+
+<!-- ixx         ixy == 0        ixz ==0
+ixy ==0     iyy             iyz ==0
+ixz==0      iyz==0          izz  -->
+
 <robot name="guru_bot">
     <link name="base_link">
         <visual>
@@ -20,8 +36,8 @@
             </geometry>
         </collision>  
         <inertial>
-            <mass value="2"/>
-            <inertia ixx="0.015" ixy="0.0375" ixz="0.0375" iyy="0.0" iyz="0.0" izz="0.0"/>
+            <mass value="1.0"/>
+            <inertia ixx="0.015" ixy="0" ixz="0" iyy="0.0375" iyz="0.0" izz="0.0375"/>
         </inertial> 
     </link>
     <link name="front_caster_of_wheel">
@@ -40,7 +56,7 @@
         </collision>
         <inertial>
             <mass value="0.1"/>
-            <inertia ixx="0.00083" ixy="0.00083" ixz="0.000167" iyy="0.0" iyz="0.0" izz="0.0"/>
+            <inertia ixx="0.00083" ixy="0" ixz="0" iyy="0.00083" iyz="0.0" izz="0.000167"/>
         </inertial> 
     </link>
     <joint name="front_caster_of_wheel_joint" type="continuous">
@@ -65,7 +81,7 @@
         </collision>
         <inertial>
             <mass value="0.1"/>
-            <inertia ixx="5.1458e-5" ixy="5.1458e-5" ixz="6.125e-5" iyy="0.0" iyz="0.0" izz="0.0"/>
+            <inertia ixx="5.1458e-5" ixy="0" ixz="0" iyy="5.1458e-5" iyz="0.0" izz="6.125e-5"/>
         </inertial> 
     </link>
     <joint name="front_wheel_joint" type="continuous">
@@ -91,7 +107,7 @@
         </collision>
         <inertial>
             <mass value="0.1"/>
-            <inertia ixx="5.1458e-5" ixy="5.1458e-5" ixz="6.125e-5" iyy="0.0" iyz="0.0" izz="0.0"/>
+            <inertia ixx="5.1458e-5" ixy="0.0" ixz="0.0" iyy="5.1458e-5" iyz="0.0" izz="6.125e-5"/>
         </inertial> 
     </link>
     <joint name="right_wheel_joint" type="continuous">
@@ -119,7 +135,7 @@
         </collision>
         <inertial>
             <mass value="0.1"/>
-            <inertia ixx="5.1458e-5" ixy="5.1458e-5" ixz="6.125e-5" iyy="0.0" iyz="0.0" izz="0.0"/>
+            <inertia ixx="5.1458e-5" ixy="0" ixz="0" iyy="5.1458e-5" iyz="0.0" izz="6.125e-5"/>
         </inertial> 
     </link>
     <joint name="left_wheel_joint" type="continuous">
@@ -129,4 +145,25 @@
         <origin xyz="-0.2825 .13 -.05" rpy="-1.5707 0.0 0.0"/> 
         <!--xyz - positioning the wheel-->
     </joint>
+<!-- roslaunch guru_bot bot_model.launch    Use this command in th terminal once the launch file is created -->
+    <!-- now we ant to control through keyboard -->
+    <!-- so cmd_vel odom interface  support is required -->
+    
+    <gazebo>
+        <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+        <!-- the above command will automatically enable /cmd_vel ROS topic  -->
+            <leftJoint>left_wheel_joint</leftJoint>
+            <rightJoint>right_wheel_joint</rightJoint>
+            <legacyMode>false</legacyMode>
+
+            <robotBaseFrame>base_link</robotBaseFrame>
+            <wheelSeparation>0.25</wheelSeparation>
+            <wheelDiameter>0.07</wheelDiameter>
+            <publishWheelJointState>true</publishWheelJointState>
+      
+        </plugin>
+     </gazebo>
+     <!-- Before running the code with gazebo install the following from the terminal -->
+<!-- sudo apt-get install ros-kinetic-teleop-twist-keyboard -->
+<!-- More info http://wiki.ros.org/teleop_twist_keyboard -->
 </robot>

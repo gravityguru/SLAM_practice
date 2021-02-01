@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+<!-- define parameters and robot package for call -->
+    <param name="robot_description" textfile="$(find guru_bot)/urdf/right_left_wheel.urdf"/>
+    <!-- to visualize robot in Gazebo , call gazebo empty world-->
+    <include file = "$(find gazebo_ros)/launch/empty_world.launch" />
+    <node name = "spawn_urdf" pkg = "gazebo_ros" type="spawn_model"
+            args = "-param robot_description -urdf -model right_left_wheel" />
+
+</launch>
+
+<!-- roslaunch guru_bot bot_model.launch    >use this in the terminal -->
+<!-- Have you Tried to open multiple terminals using:
+Ctrl + Shift + T
+Then switching among them using:
+Ctrl + PageUP
+And
+Ctrl + PageDown
+I usually use this scenario at least for me -->
