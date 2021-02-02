@@ -166,4 +166,27 @@ ixz==0      iyz==0          izz  -->
      <!-- Before running the code with gazebo install the following from the terminal -->
 <!-- sudo apt-get install ros-kinetic-teleop-twist-keyboard -->
 <!-- More info http://wiki.ros.org/teleop_twist_keyboard -->
+<!-- <!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%%%%%%%%%%%%%%%%%%%%%%~~~~~~~~~~~~~~~~~~~~~~~~> -->
+<!-- Linking Gazebo and rviz -->
+<!-- run roslaunch guru_bot bot_model.launch -->
+ <!-- then run rviz on the new terminal  -->
+ <!-- Select Fixed frame as odom -->
+ <!-- then click on add and select the robot model  -->
+  <!-- You will observe that the actual robot will not be visible in rviz  -->
+   <!-- thes is because the rviz is not subscribed to /joint_states -->
+   <!-- therefore add the following in the urdf file and modify the launch file  -->
+<gazebo>
+        <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+        <!-- the above command will automatically enable /cmd_vel ROS topic  -->
+            <leftJoint>left_wheel_joint</leftJoint>
+            <rightJoint>right_wheel_joint</rightJoint>
+            <legacyMode>false</legacyMode>
+
+            <robotBaseFrame>base_link</robotBaseFrame>
+            <wheelSeparation>0.25</wheelSeparation>
+            <wheelDiameter>0.07</wheelDiameter>
+            <publishWheelJointState>true</publishWheelJointState>
+      
+        </plugin>
+     </gazebo>
 </robot>
